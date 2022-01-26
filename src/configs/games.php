@@ -52,4 +52,16 @@ return [
             ]
         ],
     ],
+    '_57' => [
+        'name' => "Thanh Vân Kiếm",
+        'server_list_api_url' => 'http://cls-test-57.vgplay.vn/hv1/server_list.php',
+        'character_list_api' => [
+            'url' => 'http://cls-test-57.vgplay.vn/hv1/role_list.php',
+            'method' => 'POST',
+            'params' => [
+                'vgp_id' => 'vgp_id',
+                'server_id' => 'server_id'
+            ]
+        ],
+    ],
 ];
