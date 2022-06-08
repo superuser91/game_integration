@@ -64,4 +64,16 @@ return [
             ]
         ],
     ],
+    '_59' => [
+        'name' => "Clover Knights",
+        'server_list_api_url' => 'http://manager-t15vn-t15-59.vgplay.vn/api/vn/server_list.php',
+        'character_list_api' => [
+            'url' => 'https://manager-t15vn-t15-59.vgplay.vn/api/vn/user_info.php',
+            'method' => 'POST',
+            'params' => [
+                'vgp_id' => 'vgp_id',
+                'server_id' => 'server_id'
+            ]
+        ],
+    ],
 ];
