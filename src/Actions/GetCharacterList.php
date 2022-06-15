@@ -71,7 +71,7 @@ class GetCharacterList implements GetCharacterListInterface
             return json_decode($response, true);
         }
 
-        $response = Http::timeout(config('games.timeout', 3))->post(
+        $response = Http::asForm()->timeout(config('games.timeout', 3))->post(
             $game['character_list_api']['url'],
             [
                 $game['character_list_api']['params']['vgp_id']    => $vgpId,
