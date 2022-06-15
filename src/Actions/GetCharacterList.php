@@ -51,7 +51,7 @@ class GetCharacterList implements GetCharacterListInterface
     protected function fetchCharacterList($game, $serverId, $vgpId)
     {
         if ($game['character_list_api']['method'] == 'GET') {
-            $res = Http::get($game['character_list_api']['url'], array_merge([
+            $res = Http::timeout(config('games.timeout', 3))->get($game['character_list_api']['url'], array_merge([
                 $game['character_list_api']['params']['vgp_id']    => $vgpId,
                 $game['character_list_api']['params']['server_id'] => $serverId,
             ], $game['character_list_api']['pre_params'] ?? []));
@@ -59,21 +59,26 @@ class GetCharacterList implements GetCharacterListInterface
             return json_decode($res->body(), true);
         }
 
-        $curl = curl_init();
+        if (isset($game['character_list_api']['content-type']) && $game['character_list_api']['content-type'] == 'application/json') {
+            $response = Http::asJson()->timeout(config('games.timeout', 3))->post(
+                $game['character_list_api']['url'],
+                [
+                    $game['character_list_api']['params']['vgp_id']    => $vgpId,
+                    $game['character_list_api']['params']['server_id'] => $serverId,
+                ]
+            )->body();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $game['character_list_api']['url'],
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => $game['character_list_api']['method'],
-            CURLOPT_POSTFIELDS => [
+            return json_decode($response, true);
+        }
+
+        $response = Http::timeout(config('games.timeout', 3))->post(
+            $game['character_list_api']['url'],
+            [
                 $game['character_list_api']['params']['vgp_id']    => $vgpId,
                 $game['character_list_api']['params']['server_id'] => $serverId,
-            ],
-        ));
+            ]
+        )->body();
 
-        $response = curl_exec($curl);
-
-        curl_close($curl);
         return json_decode($response, true);
     }
 }

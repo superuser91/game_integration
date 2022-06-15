@@ -4,6 +4,7 @@ namespace Vgplay\GameIntegration\Actions;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Vgplay\GameIntegration\Contracts\GetServerListInterface;
 use Vgplay\GameIntegration\Exceptions\GameNotFoundException;
 use Vgplay\GameIntegration\Exceptions\MissingServerConfiguration;
@@ -34,7 +35,7 @@ class GetServerList implements GetServerListInterface
         }
 
         return Cache::remember(sprintf("_%s_servers", $gameId), 30 * 60, function () use ($game) {
-            $data = json_decode(file_get_contents($game['server_list_api_url']), true);
+            $data = json_decode(Http::timeout(config('games.timeout', 3))->get($game['server_list_api_url'])->body(), true);
 
             $servers = collect(isset($data['servers_list']) ? $data['servers_list'] : []);
 

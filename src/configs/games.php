@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'timeout' => 3,
     '_39' => [
         'name' => "Linh Kiếm Cửu Thiên",
         'server_list_api_url' => 'https://hmlvncenter.vgplay.vn/hhsy/api/server2.php?r=chenglu',
@@ -72,6 +73,19 @@ return [
             'method' => 'POST',
             'params' => [
                 'vgp_id' => 'vgp_id',
+                'server_id' => 'server_id'
+            ]
+        ],
+    ],
+    '_50' => [
+        'name' => "Võ Lâm Thiên Tuyệt",
+        'server_list_api_url' => 'http://103.102.129.33:34135/vgp_get_server_list',
+        'character_list_api' => [
+            'url' => 'http://103.102.129.33:34135/vgp_get_role_list',
+            'method' => 'POST',
+            'content-type' => 'application/json',
+            'params' => [
+                'vgp_id' => 'vgpid',
                 'server_id' => 'server_id'
             ]
         ],
