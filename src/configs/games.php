@@ -41,6 +41,18 @@ return [
             ]
         ],
     ],
+    '_47' => [
+        'name' => "Vạn Niên Nhất Kiếm",
+        'server_list_api_url' => 'http://tool-47.vgplay.vn:83/502-1001/api/serverList',
+        'character_list_api' => [
+            'url' => 'http://tool-47.vgplay.vn:83/502-1001/api/roleList',
+            'method' => 'POST',
+            'params' => [
+                'vgp_id' => 'vgpid',
+                'server_id' => 'server_id'
+            ]
+        ],
+    ],
     '_56' => [
         'name' => "Tiếu Ngạo Độc Tôn",
         'server_list_api_url' => 'http://account-56.vgplay.vn/index.php?do=api.serverList&ingor_encrypt=1&data={}',
